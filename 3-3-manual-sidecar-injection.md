@@ -39,7 +39,7 @@ istioctl kube-inject -f nginx-deployment.yml | kubectl apply -f -
 ```
 
 
-### 自动注入
+## 自动注入
 
 ```
 kubectl label namespace default istio-injection=enabled
