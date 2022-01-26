@@ -1,4 +1,4 @@
-手工注入istio sidecar
+## 手工注入istio sidecar
 
 1. 生成一个K8S deployment示例
 ```

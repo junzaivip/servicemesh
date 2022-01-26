@@ -1,5 +1,5 @@
 
-###通过istioctl方式安装
+## 通过istioctl方式安装
 1. 下载istio安装文件
 ```
 curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.11.5 TARGET_ARCH=x86_64 sh -
@@ -18,7 +18,7 @@ kubectl get pods -A
 ```
 
 
-删除所有istio组件
+## 删除所有istio组件
 ```
 istioctl x uninstall --purge
 ```

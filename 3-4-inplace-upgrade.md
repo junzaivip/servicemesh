@@ -1,8 +1,8 @@
-原地升级
+## 原地升级
 
-#假设已经安装了istio 1.11.x
+# 假设已经安装了istio 1.11.x
 
-下载安装istio 1.12.1
+# 下载安装istio 1.12.1
 ```
 istioctl proxy-status
 curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.12.1 TARGET_ARCH=x86_64 sh -
