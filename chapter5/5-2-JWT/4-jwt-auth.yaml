@@ -1,0 +1,55 @@
+apiVersion: "security.istio.io/v1beta1"
+kind: "RequestAuthentication"
+metadata:
+  name: "jwt-example"
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: httpbin
+  jwtRules:
+  - issuer: "http://keycloak.istio.fun/auth/realms/customer"
+    jwksUri: "http://keycloak.istio.fun/auth/realms/customer/protocol/openid-connect/certs"
+
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: "jwt-example"
+spec:
+  selector:
+    matchLabels:
+      app: httpbin
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        requestPrincipals: ["*"]
+    to:
+    - operation:
+        paths: ["/headers"]
+        methods: ["POST"]
+    when:
+    - key: request.auth.claims[roles]
+      values: ["customer"]
+  - from:
+    - source:
+        notRequestPrincipals: ["*"]
+    to:
+    - operation:
+        paths: ["/headers"]
+        methods: ["GET"]
+  - from: # 由于envoy中当有allow条件时，如果无法匹配默认会拒绝所以需要应用以下策略在访问非headers时不验证客户端信息
+    - source:
+        notRequestPrincipals: ["*"]
+    to:
+    - operation:
+        notPaths: ["/headers"]
+
+
+
+
+
+
+
+

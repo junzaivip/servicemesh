@@ -45,21 +45,7 @@ curl "http://httpbin.istio.fun/headers"
 
 ## 应用授权策略，只有通过认证的服务才能访问
 ```
-kubectl apply -f - <<EOF
-apiVersion: "security.istio.io/v1beta1"
-kind: "RequestAuthentication"
-metadata:
-  name: "jwt-example"
-  namespace: default
-spec:
-  selector:
-    matchLabels:
-      app: httpbin
-  jwtRules:
-  - issuer: "http://keycloak.istio.fun/auth/realms/customer"
-    jwksUri: "http://keycloak.istio.fun/auth/realms/customer/protocol/openid-connect/certs"
-
-EOF
+kubectl apply -f 4-jwt-auth.yaml
 ```
 
 
@@ -68,4 +54,12 @@ curl \
   -sk \
   --data "username=jeff&password=jeff&grant_type=password&client_id=istio" \
   http://keycloak.istio.fun/auth/realms/customer/protocol/openid-connect/token | jq ".access_token"
+
+TOKEN=sfghfdsdhgfdghggfddghfdfghdgh
+
+curl -i http://httpbin.istio.fun/headers -H "Authorization: Bearer dfdggdfegg"
+curl -i http://httpbin.istio.fun/headers -H "Authorization: Bearer $TOKEN"
+curl -XPOST -i http://httpbin.istio.fun/headers -H "Authorization: Bearer $TOKEN"
+curl -XGET -i http://httpbin.istio.fun/headers -H "Authorization: Bearer $TOKEN"
+curl -XGET -i http://httpbin.istio.fun/ip
 ```
