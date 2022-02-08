@@ -1,0 +1,32 @@
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-https-dns01
+spec:
+  acme:
+    email: gotojeff123456879@gmail.com
+    privateKeySecretRef:
+      name: letsencryp-https-dns01-key
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - dns01:
+        azureDNS:
+          environment: AzurePublicCloud
+          hostedZoneName: istio.fun
+          resourceGroupName: test
+          subscriptionID: 11491e2c-41c8-41c0-b3d6-875b52107757
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kiali-cert
+  namespace: istio-system
+spec:
+  dnsNames:
+  - kiali.istio.fun
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-https-dns01
+  secretName: kiali-cert-dns
