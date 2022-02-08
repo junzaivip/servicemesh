@@ -26,5 +26,5 @@ spec:
             cpu: "10m"
           limits:
             memory: "20Mi"
-            cpu: "20m
+            cpu: "20m"
         command: ['sh', '-c', 'echo Container 1 is Running ; sleep 3600']
