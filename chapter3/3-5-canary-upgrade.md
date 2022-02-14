@@ -14,4 +14,9 @@ istioctl proxy-status
 # 如果没有istio-injection label可以使用这个命令
 kubectl label --overwrite  namespace default  istio.io/rev=1-11-5
 kubectl rollout restart deployment -n default
+
+## 验证
+kubectl get pods -n istio-system -l app=istiod
+kubectl get svc -n istio-system -l app=istiod
+istioctl proxy-status
 ```
