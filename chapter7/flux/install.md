@@ -2,8 +2,8 @@
 
 brew install fluxcd/tap/flux
 
-export GITHUB_TOKEN=<your-token>
-export GITHUB_USER=<your-username>
+export GITHUB_TOKEN=your-token
+export GITHUB_USER=your-username
 
 flux check --pre
 
