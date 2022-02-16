@@ -70,7 +70,10 @@ istioctl kube-inject -f test.yaml | kubectl apply -n test -f -
 
 ```
 kubectl get pods -n test
-istioctl proxy-config clusters sleep-557747455f-c4j6c
+istioctl proxy-config clusters sleep-557747455f-c4j6c  -n test
+##检查outbound traffic policy： 空表示 allow-all
+k edit  sidecar default -n test
+
 k exec -it -n test sleep-557747455f-c4j6c  -- curl kiali.istio-system.svc.cluster.local:20001
 ```
 
@@ -80,7 +83,7 @@ cat << EOF > sidecar.yaml
 apiVersion: networking.istio.io/v1beta1
 kind: Sidecar
 metadata:
-  name: block-test
+  name: default
   namespace: test
 spec:
   egress:
@@ -94,7 +97,9 @@ EOF
 6. 创建sidecar资源，再次访问
 
 ```
-kubectl apply -f sidecar.yaml
+kubectl apply -f sidecar.yaml -n test
 k exec -it -n test sleep-557747455f-c4j6c  -- curl kiali.istio-system.svc.cluster.local:20001
 istioctl proxy-config clusters sleep-557747455f-c4j6c
+
+k edit sidecar default -n test
 ```

@@ -3,7 +3,7 @@
 ## 部署kiali服务
 kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.12/samples/addons/kiali.yaml
 
-## 创建新的gateway并且暴露给mesh外访问
+## 创建新的gateway并且暴露给mesh外访问(http only)
 kubectl apply -f kiali-expose.yaml
 ```
 
@@ -15,6 +15,8 @@ kubectl apply -f kiali-expose.yaml
  openssl x509 -req -days 365 -CA root.crt -CAkey private.key -set_serial 0 -in kiali.istio.fun.csr -out kiali.istio.fun.crt
  kubectl create -n istio-system secret tls https-kiali-credential --key=kiali.istio.fun.key --cert=kiali.istio.fun.crt
  kubectl get secret -n istio-system
+
+ ## 此时Gateway使用https证书
  kubectl apply -f kiali-gw-https.yml
  curl  -k  https://kiali.istio.fun/ -I
  # Safiri 打开

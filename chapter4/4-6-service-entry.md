@@ -6,7 +6,7 @@ cat << EOF > sidecar.yaml
 apiVersion: networking.istio.io/v1beta1
 kind: Sidecar
 metadata:
-  name: block-test
+  name: default
   namespace: test
 spec:
   egress:
@@ -45,4 +45,9 @@ EOF
 4. 再次访问成功
 ```
 k exec -it -n test sleep-7854b8bc5-cmmdq    -- curl -I  httpbin.org
+```
+
+5. clean up
+```
+k delete -f serviceentry.yaml -n test
 ```

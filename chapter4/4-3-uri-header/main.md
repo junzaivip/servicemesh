@@ -7,3 +7,8 @@ k apply -f virtual-service-bookinfo-uri.yaml
 ```
 k apply -f virtual-service-reviews-login-user.yaml
 ```
+
+```
+浏览器打开
+istio.fun/details/1
+```

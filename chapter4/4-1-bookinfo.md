@@ -1,8 +1,9 @@
 
 ## 安装bookinfo 示例
 ```
+export istio_path=<where you download the istio installation package>
 kubectl label namespace default istio-injection=enabled
-kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+kubectl apply -f $istio_path/samples/bookinfo/platform/kube/bookinfo.yaml
 kubectl get svc -A
 kubectl get pods -A
 ```
