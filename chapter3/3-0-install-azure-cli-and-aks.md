@@ -8,9 +8,8 @@
 
 ## az login
 
-```
-az login -u <username> -p <password> --tenant <tenant>
-```
+在 portal.azure.com/ 页面输入用户名，密码登录后在命令行输入： az login 
+
 
 ## 创建 AKS 集群
 
