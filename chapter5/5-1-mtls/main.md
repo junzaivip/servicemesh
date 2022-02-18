@@ -3,6 +3,9 @@ k create ns test
 k label ns test istio-injection-
 k apply -f  sleep.yaml -n test 
 
+删除以前环境设置的sidecar资源,否则会禁止流量访问default namespace
+k delete sidecar  default -n test
+
 设置对等认证 - permissive
 cat <<EOF | kubectl apply -f -
 apiVersion: "security.istio.io/v1beta1"
@@ -32,13 +35,13 @@ spec:
 EOF
 
 
-测试
+测试 - 返回失败
 k exec -it sleep-557747455f-cvwgm  -n test  -c sleep  -- curl http://httpbin.default:8000/headers
 
 ## istio服务注入
 kubectl apply -f <(istioctl kube-inject -f sleep.yaml) -n test
 
-### 获得新的pod id
+### 获得新的pod id，重试成功
 k exec -it sleep-54f874965c-d6rct  -n test  -c sleep  -- curl http://httpbin.default:8000/headers
 
 ## 删除pod

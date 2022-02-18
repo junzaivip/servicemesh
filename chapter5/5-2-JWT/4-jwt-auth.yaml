@@ -28,17 +28,8 @@ spec:
     to:
     - operation:
         paths: ["/headers"]
-        methods: ["POST"]
-    when:
-    - key: request.auth.claims[roles]
-      values: ["customer"]
-  - from:
-    - source:
-        notRequestPrincipals: ["*"]
-    to:
-    - operation:
-        paths: ["/headers"]
         methods: ["GET"]
+
   - from: # 由于envoy中当有allow条件时，如果无法匹配默认会拒绝所以需要应用以下策略在访问非headers时不验证客户端信息
     - source:
         notRequestPrincipals: ["*"]

@@ -16,3 +16,8 @@ kubectl get svc -A
 
 ## 通过public IP查看bookinfo服务
 ![ingress gateway IP](./images/ingressgateway-IP.png)
+
+### deploy httpbin (optional)
+```
+#kubectl apply -f $istio_path/samples/httpbin/httpbin.yaml  -n default
+```
