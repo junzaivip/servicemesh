@@ -1,15 +1,18 @@
 ```
-switch to ns default
+#switch to ns default
 
 kubectl apply -f httpbin-v1.yaml
 kubectl apply -f httpbin-v2.yaml
 kubectl apply -f svc.yaml
 kubectl apply -f vs.yaml
+kubectl delete deployment httpbin
+
 
 kubectl logs -f httpbin-v1-75d9447d79-r8k8q  
 kubectl logs -f httpbin-v2-fb86d8d46-xj4zp
 
-## remove sidecar restriction in the test namespace
+## k get sidecar
+## remove sidecar restriction in the test namespace: delete the trafficoutbound policy
 ## k edit sidecar default -n test
 ## make sure the mtls is not enabled at this stage
 ## k edit PeerAuthentication  default
